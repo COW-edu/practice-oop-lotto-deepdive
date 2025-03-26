@@ -1,7 +1,20 @@
 package lotto;
 
+import lotto.config.AppConfig;
+import lotto.controller.LottoController;
+import lotto.view.InputView;
+import lotto.view.InputViewImpl;
+import lotto.view.OutputView;
+import lotto.view.OutputViewImpl;
+
 public class Application {
     public static void main(String[] args) {
-        // TODO: 프로그램 구현
+        AppConfig appConfig = new AppConfig();
+        LottoController lottoController = appConfig.lottoController();
+        InputView inputView = new InputViewImpl();
+        OutputView outputView = new OutputViewImpl(lottoController);
+
+        ApplicationRun applicationRun = new ApplicationRun(inputView, outputView, lottoController);
+        applicationRun.run();
     }
 }
