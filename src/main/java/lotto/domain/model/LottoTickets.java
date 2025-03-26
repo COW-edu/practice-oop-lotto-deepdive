@@ -4,6 +4,7 @@ import lotto.domain.generator.LottoNumberGenerator;
 import lotto.util.ErrorMessages;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LottoTickets {
     private static final int PRICE_PER_TICKET = 1000;
@@ -15,7 +16,10 @@ public class LottoTickets {
         int count = amount / PRICE_PER_TICKET;
         List<Lotto> generated = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            generated.add(new Lotto(generator.generate()));
+            List<Integer> sortedNumbers = generator.generate().stream()
+                    .sorted()
+                    .collect(Collectors.toList());
+            generated.add(new Lotto(sortedNumbers));
         }
         return new LottoTickets(generated);
     }
