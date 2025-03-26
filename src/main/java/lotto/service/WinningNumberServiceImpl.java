@@ -1,15 +1,16 @@
-package lotto.controller;
+package lotto.service;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import lotto.Lotto;
 import lotto.model.WinningNumberRepository;
 
-public class WinningNumberControllerImpl implements WinningNumberController {
+public class WinningNumberServiceImpl implements WinningNumberService {
 
     private final WinningNumberRepository winningNumberRepository;
 
-    public WinningNumberControllerImpl(WinningNumberRepository winningNumberRepository) {
+    public WinningNumberServiceImpl(WinningNumberRepository winningNumberRepository) {
         this.winningNumberRepository = winningNumberRepository;
     }
 
@@ -25,6 +26,10 @@ public class WinningNumberControllerImpl implements WinningNumberController {
     @Override
     public void saveBonusNumber(int bonusNumber) {
         winningNumberRepository.saveBonusNumber(bonusNumber);
+    }
+
+    @Override
+    public void matchNumber(List<Lotto> lottoList) {
     }
 
     @Override

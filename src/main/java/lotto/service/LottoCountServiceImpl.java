@@ -1,12 +1,12 @@
-package lotto.controller;
+package lotto.service;
 
 import lotto.model.LottoCountRepository;
 
-public class LottoCountControllerImpl implements LottoCountController {
+public class LottoCountServiceImpl implements LottoCountService {
 
     private final LottoCountRepository lottoCountRepository;
 
-    public LottoCountControllerImpl(LottoCountRepository lottoCountRepository) {
+    public LottoCountServiceImpl(LottoCountRepository lottoCountRepository) {
         this.lottoCountRepository = lottoCountRepository;
     }
 
@@ -20,4 +20,5 @@ public class LottoCountControllerImpl implements LottoCountController {
     public int getPurchasedLottoCount() {
         return lottoCountRepository.getLottoCount();
     }
+
 }

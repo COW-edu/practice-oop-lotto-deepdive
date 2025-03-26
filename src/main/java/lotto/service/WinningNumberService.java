@@ -1,10 +1,15 @@
-package lotto.controller;
+package lotto.service;
 
-public interface WinningNumberController {
+import java.util.List;
+import lotto.Lotto;
+
+public interface WinningNumberService {
 
     void saveWinningNumber(String winningNumbers);
 
     void saveBonusNumber(int bonusNumber);
+
+    void matchNumber(List<Lotto> lottoList);
 
     float getRateOfReturn();
 
@@ -17,5 +22,4 @@ public interface WinningNumberController {
     int getBonusCount();
 
     int getSixCount();
-
 }

@@ -1,6 +1,6 @@
-package lotto.controller;
+package lotto.service;
 
-public interface LottoCountController {
+public interface LottoCountService {
 
     void calculatePurchasedLottoCount(int money);
 
