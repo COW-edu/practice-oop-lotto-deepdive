@@ -18,19 +18,19 @@ public class Lotto {
 
     private void validate(List<Integer> numbers) {
         if (numbers.size() != 6) {
-            throw new IllegalArgumentException(ErrorMessages.INVALID_WINNING_NUMBER_COUNT);
+            throw new IllegalArgumentException(ErrorMessages.INVALID_LOTTO_NUMBER_COUNT);
         }
     }
     private void validateNumberRange(List<Integer> numbers) {
         if (numbers.stream().anyMatch(num -> num < 1 || num > 45)) {
-            throw new IllegalArgumentException(ErrorMessages.INVALID_WINNING_NUMBER_RANGE);
+            throw new IllegalArgumentException(ErrorMessages.INVALID_LOTTO_NUMBER_RANGE);
         }
     }
 
     private void validateDuplication(List<Integer> numbers) {
         Set<Integer> uniqueNumbers = new HashSet<>(numbers);
         if (uniqueNumbers.size() != numbers.size()) {
-            throw new IllegalArgumentException(ErrorMessages.DUPLICATE_WINNING_NUMBER);
+            throw new IllegalArgumentException(ErrorMessages.DUPLICATE_LOTTO_NUMBER);
         }
     }
     public List<Integer> getNumbers() {
