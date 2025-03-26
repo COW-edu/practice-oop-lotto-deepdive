@@ -27,5 +27,4 @@ public class LottoService implements LottoUseCase {
         return repository.findAll();
     }
 
-
 }
