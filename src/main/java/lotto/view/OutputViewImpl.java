@@ -1,41 +1,40 @@
 package lotto.view;
 
-import lotto.controller.LottoCountController;
-import lotto.controller.LottoNumberController;
-import lotto.controller.WinningNumberController;
+import java.util.List;
+import lotto.controller.LottoController;
+import lotto.entity.Lotto;
 
 public class OutputViewImpl implements OutputView {
 
-    private final LottoCountController lottoCountController;
-    private final LottoNumberController lottoNumberController;
-    private final WinningNumberController winningNumberController;
+    private final LottoController lottoController;
 
-    public OutputViewImpl(LottoCountController lottoCountController,
-            LottoNumberController lottoNumberController,
-            WinningNumberController winningNumberController) {
-        this.lottoCountController = lottoCountController;
-        this.lottoNumberController = lottoNumberController;
-        this.winningNumberController = winningNumberController;
+    public OutputViewImpl(LottoController lottoController) {
+        this.lottoController = lottoController;
     }
 
     @Override
     public void outputPurchasedLottoCount() {
-        int purchasedLottoCount = lottoCountController.getPurchasedLottoCount();
-        System.out.println(purchasedLottoCount + "개를 구매했습니다.");
+
+        int purchasedLottoCount = lottoController.getPurchasedLottoCount();
+        System.out.println("\n" + purchasedLottoCount + "개를 구매했습니다.");
     }
 
     @Override
     public void outputPurchasedLottoNumbers() {
-        System.out.println(lottoNumberController.getLottoNumbers());
+        List<List<Integer>> lottoList = lottoController.getLottoList();
+        for (List<Integer> lotto : lottoList) {
+            System.out.println(lotto);
+        }
+        System.out.println("\n");
     }
 
     @Override
     public void outputWinningDetail() {
-        int threeCount = winningNumberController.getThreeCount();
-        int fourCount = winningNumberController.getFourCount();
-        int fiveCount = winningNumberController.getFiveCount();
-        int bonusCount = winningNumberController.getBonusCount();
-        int sixCount = winningNumberController.getSixCount();
+        int threeCount = lottoController.getThreeCount();
+        int fourCount = lottoController.getFourCount();
+        int fiveCount = lottoController.getFiveCount();
+        int bonusCount = lottoController.getBonusCount();
+        int sixCount = lottoController.getSixCount();
 
         System.out.println("당첨 통계");
         System.out.println("---");
@@ -48,7 +47,7 @@ public class OutputViewImpl implements OutputView {
 
     @Override
     public void outputRateOfReturn() {
-        float rateOfReturn = winningNumberController.getRateOfReturn();
+        float rateOfReturn = lottoController.getRateOfReturn();
         System.out.println("총 수익률은 " + rateOfReturn + "%입니다.");
     }
 }
