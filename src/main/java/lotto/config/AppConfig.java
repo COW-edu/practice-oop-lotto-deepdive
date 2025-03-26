@@ -27,7 +27,7 @@ public class AppConfig {
     }
 
     public LottoNumberService lottoNumberService() {
-        return new LottoNumberServiceImpl(lottoCountRepository(), lottoNumberRepository());
+        return new LottoNumberServiceImpl(lottoNumberRepository());
     }
 
     public WinningNumberService winningNumberService() {
