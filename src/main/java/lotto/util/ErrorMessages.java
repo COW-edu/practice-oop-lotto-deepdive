@@ -8,5 +8,6 @@ public class ErrorMessages {
     public static final String INVALID_LOTTO_NUMBER_RANGE = ERROR_PREFIX + "로또 번호는 1부터 45 사이의 숫자여야 합니다.";
     public static final String INVALID_PURCHASE_AMOUNT = ERROR_PREFIX + "금액은 1,000원 단위여야 합니다.";
     public static final String EMPTY_LOTTO_TICKET_LIST = ERROR_PREFIX + "구매한 로또 티켓 목록은 비어 있을 수 없습니다.";
+    public static final String INVALID_AMOUNT_FORMAT = ERROR_PREFIX + "구입 금액은 숫자여야 합니다.";
 
 }
