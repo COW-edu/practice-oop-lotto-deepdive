@@ -17,9 +17,15 @@ public class LottoService implements LottoUseCase {
     }
 
     @Override
-    public LottoTickets purchase(int amount) {
+    public void purchase(int amount) {
         LottoTickets tickets = LottoTickets.fromAmount(amount, generator);
         repository.save(tickets);
-        return tickets;
     }
+
+    @Override
+    public LottoTickets getLottoTickets() {
+        return repository.findAll();
+    }
+
+
 }
