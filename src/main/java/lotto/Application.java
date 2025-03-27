@@ -11,10 +11,10 @@ public class Application {
     public static void main(String[] args) {
         AppConfig appConfig = new AppConfig();
         LottoController lottoController = appConfig.lottoController();
-        InputView inputView = new InputViewImpl();
+        InputView inputView = new InputViewImpl(lottoController);
         OutputView outputView = new OutputViewImpl(lottoController);
 
-        ApplicationRun applicationRun = new ApplicationRun(inputView, outputView, lottoController);
+        ApplicationRun applicationRun = new ApplicationRun(inputView, outputView);
         applicationRun.run();
     }
 }

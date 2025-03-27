@@ -2,7 +2,6 @@ package lotto.view;
 
 import java.util.List;
 import lotto.controller.LottoController;
-import lotto.entity.Lotto;
 
 public class OutputViewImpl implements OutputView {
 
@@ -25,11 +24,12 @@ public class OutputViewImpl implements OutputView {
         for (List<Integer> lotto : lottoList) {
             System.out.println(lotto);
         }
-        System.out.println("\n");
     }
 
     @Override
     public void outputWinningDetail() {
+        lottoController.matchWinningNumber();
+
         int threeCount = lottoController.getThreeCount();
         int fourCount = lottoController.getFourCount();
         int fiveCount = lottoController.getFiveCount();
@@ -47,7 +47,7 @@ public class OutputViewImpl implements OutputView {
 
     @Override
     public void outputRateOfReturn() {
-        float rateOfReturn = lottoController.getRateOfReturn();
+        double rateOfReturn = lottoController.getRateOfReturn();
         System.out.println("총 수익률은 " + rateOfReturn + "%입니다.");
     }
 }

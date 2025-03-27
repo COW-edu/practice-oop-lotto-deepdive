@@ -1,6 +1,5 @@
 package lotto;
 
-import lotto.controller.LottoController;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
@@ -8,28 +7,21 @@ public class ApplicationRun {
 
     private final InputView inputView;
     private final OutputView outputView;
-    private final LottoController lottoController;
 
-    public ApplicationRun(InputView inputView, OutputView outputView, LottoController lottoController) {
+    public ApplicationRun(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
-        this.lottoController = lottoController;
     }
 
     public void run() {
-        int money = inputView.inputMoney();
-        lottoController.purchaseLotto(money);
+        inputView.inputMoney();
 
         outputView.outputPurchasedLottoCount();
         outputView.outputPurchasedLottoNumbers();
 
-        String winningNumber = inputView.inputWinningNumber();
-        lottoController.saveWinningNumber(winningNumber);
+        inputView.inputWinningNumber();
 
-        int bonusNumber = inputView.inputBonusNumber();
-        lottoController.saveBonusNumber(bonusNumber);
-
-        lottoController.matchWinningNumber();
+        inputView.inputBonusNumber();
 
         outputView.outputWinningDetail();
         outputView.outputRateOfReturn();

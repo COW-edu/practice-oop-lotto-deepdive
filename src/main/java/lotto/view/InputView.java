@@ -2,9 +2,9 @@ package lotto.view;
 
 public interface InputView {
 
-    int inputMoney();
+    void inputMoney();
 
-    String inputWinningNumber();
+    void inputWinningNumber();
 
-    int inputBonusNumber();
+    void inputBonusNumber();
 }
