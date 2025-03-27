@@ -10,8 +10,7 @@ public class LottoNumberValidator implements NumberListValidation<String> {
 
     @Override
     public List<Integer> validate(String input) {
-        List<Integer> numbers = parseNumbers(input);
-        return numbers;
+        return parseNumbers(input);
     }
 
     private List<Integer> parseNumbers(String input) {
