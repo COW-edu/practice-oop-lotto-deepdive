@@ -8,30 +8,36 @@ import lotto.model.LottoNumberRepository;
 import lotto.model.LottoNumberRepositoryImpl;
 import lotto.model.WinningNumberRepository;
 import lotto.model.WinningNumberRepositoryImpl;
-import lotto.service.LottoCountService;
-import lotto.service.LottoCountServiceImpl;
-import lotto.service.LottoNumberService;
-import lotto.service.LottoNumberServiceImpl;
-import lotto.service.WinningNumberService;
-import lotto.service.WinningNumberServiceImpl;
+import lotto.service.LottoServiceImpl;
+import lotto.service.FacadeLottoCountService;
+import lotto.service.FacadeLottoCountServiceImpl;
+import lotto.service.FacadeLottoNumberService;
+import lotto.service.FacadeLottoNumberServiceImpl;
+import lotto.service.LottoService;
+import lotto.service.FacadeWinningService;
+import lotto.service.FacadeWinningServiceImpl;
 
 public class AppConfig {
 
     public LottoController lottoController() {
-        return new LottoControllerImpl(lottoCountService(), lottoNumberService(),
+        return new LottoControllerImpl(lottoService());
+    }
+
+    public LottoService lottoService() {
+        return new LottoServiceImpl(lottoCountService(), lottoNumberService(),
                 winningNumberService());
     }
 
-    public LottoCountService lottoCountService() {
-        return new LottoCountServiceImpl(lottoCountRepository());
+    public FacadeLottoCountService lottoCountService() {
+        return new FacadeLottoCountServiceImpl(lottoCountRepository());
     }
 
-    public LottoNumberService lottoNumberService() {
-        return new LottoNumberServiceImpl(lottoNumberRepository());
+    public FacadeLottoNumberService lottoNumberService() {
+        return new FacadeLottoNumberServiceImpl(lottoNumberRepository());
     }
 
-    public WinningNumberService winningNumberService() {
-        return new WinningNumberServiceImpl(winningNumberRepository());
+    public FacadeWinningService winningNumberService() {
+        return new FacadeWinningServiceImpl(lottoCountRepository(), winningNumberRepository());
     }
 
     public LottoCountRepository lottoCountRepository() {
