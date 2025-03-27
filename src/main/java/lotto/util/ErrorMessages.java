@@ -10,6 +10,7 @@ public class ErrorMessages {
     public static final String EMPTY_LOTTO_TICKET_LIST = ERROR_PREFIX + "구매한 로또 티켓 목록은 비어 있을 수 없습니다.";
     public static final String INVALID_AMOUNT_FORMAT = ERROR_PREFIX + "구입 금액은 숫자여야 합니다.";
     public static final String DUPLICATE_BONUS_NUMBER = ERROR_PREFIX + "보너스 번호는 당첨 번호와 중복될 수 없습니다.";
+    public static final String INVALID_NUMBER_INPUT = ERROR_PREFIX + "입력값은 숫자여야 합니다.";
 
     private ErrorMessages() {
     }
