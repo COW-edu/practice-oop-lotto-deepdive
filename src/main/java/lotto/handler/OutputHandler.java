@@ -17,7 +17,10 @@ public class OutputHandler {
 
     public void printAllLottoNumber(List<Lotto> lottoList) {
         lottoList.stream()
-                .map(Lotto::getNumbers)
+                .map(lotto -> lotto.getNumbers()
+                        .stream()
+                        .sorted()
+                        .toList())
                 .forEach(System.out::println);
     }
 
