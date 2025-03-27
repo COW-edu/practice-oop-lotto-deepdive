@@ -5,8 +5,7 @@ import lotto.common.AppConfig;
 public class Application {
 
     public static void main(String[] args) {
-        AppConfig appConfig = new AppConfig();
-        LottoApplication lottoApplication = appConfig.getLottoApplication();
+        LottoApplication lottoApplication = AppConfig.getInstance().getLottoApplication();
         lottoApplication.run();
     }
 }

@@ -10,7 +10,19 @@ import lotto.handler.OutputHandler;
 
 public class AppConfig {
 
-    private final LottoApplication lottoApplication = new LottoApplication(lottoMachine(), lottoStore(), lottoMatcher(), calculator(), inputView(), outputView());
+    private static final AppConfig INSTANCE = new AppConfig();
+    private final LottoApplication lottoApplication;
+
+    private AppConfig() {
+        this.lottoApplication = new LottoApplication(
+                lottoMachine(), lottoStore(), lottoMatcher(),
+                calculator(), inputView(), outputView()
+        );
+    }
+
+    public static AppConfig getInstance() {
+        return INSTANCE;
+    }
 
     public LottoApplication getLottoApplication() {
         return lottoApplication;
