@@ -3,15 +3,14 @@ package lotto.service;
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.Collections;
 import java.util.List;
-import lotto.entity.Lotto;
-import lotto.model.LottoCountRepository;
+import lotto.model.entity.Lotto;
 import lotto.model.LottoNumberRepository;
 
-public class LottoNumberServiceImpl implements LottoNumberService {
+public class FacadeLottoNumberServiceImpl implements FacadeLottoNumberService {
 
     private final LottoNumberRepository lottoNumberRepository;
 
-    public LottoNumberServiceImpl(LottoNumberRepository lottoNumberRepository) {
+    public FacadeLottoNumberServiceImpl(LottoNumberRepository lottoNumberRepository) {
         this.lottoNumberRepository = lottoNumberRepository;
     }
 
