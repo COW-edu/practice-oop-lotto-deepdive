@@ -6,8 +6,8 @@ import lotto.model.LottoCountRepository;
 import lotto.model.LottoCountRepositoryImpl;
 import lotto.model.LottoNumberRepository;
 import lotto.model.LottoNumberRepositoryImpl;
-import lotto.model.WinningNumberRepository;
-import lotto.model.WinningNumberRepositoryImpl;
+import lotto.model.WinningRepository;
+import lotto.model.WinningRepositoryImpl;
 import lotto.service.LottoServiceImpl;
 import lotto.service.FacadeLottoCountService;
 import lotto.service.FacadeLottoCountServiceImpl;
@@ -49,8 +49,8 @@ public class AppConfig {
         return new LottoNumberRepositoryImpl();
     }
 
-    public WinningNumberRepository winningNumberRepository() {
-        return new WinningNumberRepositoryImpl();
+    public WinningRepository winningNumberRepository() {
+        return new WinningRepositoryImpl();
     }
 
 }
