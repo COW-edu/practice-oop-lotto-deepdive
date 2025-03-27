@@ -1,7 +1,7 @@
 package lotto.model;
 
 import java.util.List;
-import lotto.Lotto;
+import lotto.model.entity.Lotto;
 
 public interface LottoNumberRepository {
 
