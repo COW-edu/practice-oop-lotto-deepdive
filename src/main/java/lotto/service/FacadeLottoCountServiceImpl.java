@@ -1,5 +1,7 @@
 package lotto.service;
 
+import static lotto.constants.LottoConstants.LOTTO_PRICE;
+
 import lotto.model.LottoCountRepository;
 
 public class FacadeLottoCountServiceImpl implements FacadeLottoCountService {
@@ -12,7 +14,7 @@ public class FacadeLottoCountServiceImpl implements FacadeLottoCountService {
 
     @Override
     public int calculatePurchasedLottoCount(int money) {
-        return money / 1000;
+        return money / LOTTO_PRICE;
     }
 
     @Override

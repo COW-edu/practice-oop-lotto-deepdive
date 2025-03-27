@@ -5,6 +5,7 @@ import static lotto.WinningCount.FIVE_COUNT;
 import static lotto.WinningCount.FOUR_COUNT;
 import static lotto.WinningCount.SIX_COUNT;
 import static lotto.WinningCount.THREE_COUNT;
+import static lotto.constants.LottoConstants.DEFAULT_WINNING_COUNT;
 
 import java.util.HashMap;
 import java.util.List;
@@ -49,11 +50,11 @@ public class LottoServiceImpl implements LottoService {
     public void matchWinningNumber() {
         List<Lotto> lottoList = facadeLottoNumberService.getLottoList();
         Map<Integer, Integer> lottoCountStatistics = new HashMap<>();
-        lottoCountStatistics.put(THREE_COUNT.getCount(), 0);
-        lottoCountStatistics.put(FOUR_COUNT.getCount(), 0);
-        lottoCountStatistics.put(FIVE_COUNT.getCount(), 0);
-        lottoCountStatistics.put(BONUS_COUNT.getCount(), 0);
-        lottoCountStatistics.put(SIX_COUNT.getCount(), 0);
+        lottoCountStatistics.put(THREE_COUNT.getCount(), DEFAULT_WINNING_COUNT);
+        lottoCountStatistics.put(FOUR_COUNT.getCount(), DEFAULT_WINNING_COUNT);
+        lottoCountStatistics.put(FIVE_COUNT.getCount(), DEFAULT_WINNING_COUNT);
+        lottoCountStatistics.put(BONUS_COUNT.getCount(), DEFAULT_WINNING_COUNT);
+        lottoCountStatistics.put(SIX_COUNT.getCount(), DEFAULT_WINNING_COUNT);
         facadeWinningService.matchNumber(lottoList, lottoCountStatistics);
         facadeWinningService.saveLottoResult(lottoCountStatistics);
     }

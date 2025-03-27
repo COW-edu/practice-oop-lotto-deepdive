@@ -1,10 +1,21 @@
 package lotto.view;
 
+import static lotto.constants.OutputViewConstants.BONUS_WINNING_MESSAGE;
+import static lotto.constants.OutputViewConstants.COUNT_MESSAGE;
+import static lotto.constants.OutputViewConstants.FIVE_WINNING_MESSAGE;
+import static lotto.constants.OutputViewConstants.FOUR_WINNING_MESSAGE;
+import static lotto.constants.OutputViewConstants.LINE_MESSAGE;
+import static lotto.constants.OutputViewConstants.OUTPUT_LOTTO_COUNT_MESSAGE;
+import static lotto.constants.OutputViewConstants.PERCENT_MESSAGE;
+import static lotto.constants.OutputViewConstants.RATE_OF_RETURN_MESSAGE;
+import static lotto.constants.OutputViewConstants.SIX_WINNING_MESSAGE;
+import static lotto.constants.OutputViewConstants.THREE_WINNING_MESSAGE;
+import static lotto.constants.OutputViewConstants.WINNING_STATISTICS_MESSAGE;
+
 import java.util.List;
 import lotto.controller.LottoController;
 
 public class OutputViewImpl implements OutputView {
-
     private final LottoController lottoController;
 
     public OutputViewImpl(LottoController lottoController) {
@@ -13,9 +24,9 @@ public class OutputViewImpl implements OutputView {
 
     @Override
     public void outputPurchasedLottoCount() {
-
         int purchasedLottoCount = lottoController.getPurchasedLottoCount();
-        System.out.println("\n" + purchasedLottoCount + "개를 구매했습니다.");
+        System.out.println();
+        System.out.println(purchasedLottoCount + OUTPUT_LOTTO_COUNT_MESSAGE);
     }
 
     @Override
@@ -36,18 +47,18 @@ public class OutputViewImpl implements OutputView {
         int bonusCount = lottoController.getBonusCount();
         int sixCount = lottoController.getSixCount();
 
-        System.out.println("당첨 통계");
-        System.out.println("---");
-        System.out.println("3개 일치 (5,000원) - " + threeCount + "개");
-        System.out.println("4개 일치 (50,000원) - " + fourCount + "개");
-        System.out.println("5개 일치 (1,500,000원) - " + fiveCount + "개");
-        System.out.println("5개 일치, 보너스 볼 일치 (30,000,000원) - " + bonusCount + "개");
-        System.out.println("6개 일치 (2,000,000,000원) - " + sixCount + "개");
+        System.out.println(WINNING_STATISTICS_MESSAGE);
+        System.out.println(LINE_MESSAGE);
+        System.out.println(THREE_WINNING_MESSAGE + threeCount + COUNT_MESSAGE);
+        System.out.println(FOUR_WINNING_MESSAGE + fourCount + COUNT_MESSAGE);
+        System.out.println(FIVE_WINNING_MESSAGE + fiveCount + COUNT_MESSAGE);
+        System.out.println(BONUS_WINNING_MESSAGE + bonusCount + COUNT_MESSAGE);
+        System.out.println(SIX_WINNING_MESSAGE + sixCount + COUNT_MESSAGE);
     }
 
     @Override
     public void outputRateOfReturn() {
         double rateOfReturn = lottoController.getRateOfReturn();
-        System.out.println("총 수익률은 " + rateOfReturn + "%입니다.");
+        System.out.println(RATE_OF_RETURN_MESSAGE + rateOfReturn + PERCENT_MESSAGE);
     }
 }

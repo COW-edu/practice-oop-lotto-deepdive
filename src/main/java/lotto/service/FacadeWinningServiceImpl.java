@@ -5,6 +5,15 @@ import static lotto.WinningCount.FIVE_COUNT;
 import static lotto.WinningCount.FOUR_COUNT;
 import static lotto.WinningCount.SIX_COUNT;
 import static lotto.WinningCount.THREE_COUNT;
+import static lotto.constants.LottoConstants.BONUS_WINNING_MONEY;
+import static lotto.constants.LottoConstants.DEFAULT_WINNING_COUNT;
+import static lotto.constants.LottoConstants.FIVE_WINNING_MONEY;
+import static lotto.constants.LottoConstants.FOUR_WINNING_MONEY;
+import static lotto.constants.LottoConstants.PERCENTAGE_MULTIPLIER;
+import static lotto.constants.LottoConstants.PERCENTAGE_SCALE;
+import static lotto.constants.LottoConstants.SIX_WINNING_MONEY;
+import static lotto.constants.LottoConstants.THREE_WINNING_MONEY;
+import static lotto.constants.LottoConstants.WINNING_INCREMENT;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -63,10 +72,10 @@ public class FacadeWinningServiceImpl implements FacadeWinningService {
     private void matchWinningNumber(int matchedCount, boolean hasBonus, Map<Integer, Integer> matchCountStatistics) {
         if (matchedCount == FIVE_COUNT.getCount() && hasBonus) {
             matchCountStatistics.put(BONUS_COUNT.getCount(),
-                    matchCountStatistics.getOrDefault(BONUS_COUNT.getCount(), 0) + 1);
+                    matchCountStatistics.getOrDefault(BONUS_COUNT.getCount(), DEFAULT_WINNING_COUNT) + WINNING_INCREMENT);
         } else if (matchedCount >= THREE_COUNT.getCount()) {
             matchCountStatistics.put(matchedCount,
-                    matchCountStatistics.getOrDefault(matchedCount, 0) + 1);
+                    matchCountStatistics.getOrDefault(matchedCount, DEFAULT_WINNING_COUNT) + WINNING_INCREMENT);
         }
     }
 
@@ -78,11 +87,11 @@ public class FacadeWinningServiceImpl implements FacadeWinningService {
     }
 
     private static long convertToPercentage(double rateOfReturn) {
-        return Math.round(rateOfReturn * 100.0);
+        return Math.round(rateOfReturn * PERCENTAGE_MULTIPLIER);
     }
 
     private static double roundToTwoDecimalPlaces(double rateOfReturn) {
-        BigDecimal rateOfReturnBD = new BigDecimal(rateOfReturn).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal rateOfReturnBD = new BigDecimal(rateOfReturn).setScale(PERCENTAGE_SCALE, RoundingMode.HALF_UP);
         return rateOfReturnBD.doubleValue();
     }
 
@@ -92,9 +101,9 @@ public class FacadeWinningServiceImpl implements FacadeWinningService {
     }
 
     private int calculateWinningMoney(LottoResult lottoResult) {
-        return lottoResult.getThreeCount()*5000 + lottoResult.getFourCount()*50000
-                + lottoResult.getFiveCount()*1500000 + lottoResult.getBonusCount()*30000000
-                + lottoResult.getSixCount()*2000000000;
+        return lottoResult.getThreeCount()*THREE_WINNING_MONEY + lottoResult.getFourCount()*FOUR_WINNING_MONEY
+                + lottoResult.getFiveCount()*FIVE_WINNING_MONEY + lottoResult.getBonusCount()*BONUS_WINNING_MONEY
+                + lottoResult.getSixCount()*SIX_WINNING_MONEY;
     }
 
 }
