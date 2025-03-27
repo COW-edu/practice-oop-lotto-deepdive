@@ -12,17 +12,17 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import lotto.model.LottoCountRepository;
 import lotto.model.entity.Lotto;
-import lotto.model.WinningNumberRepository;
+import lotto.model.WinningRepository;
 import lotto.model.entity.LottoResult;
 
 public class FacadeWinningServiceImpl implements FacadeWinningService {
 
     private final LottoCountRepository lottoCountRepository;
-    private final WinningNumberRepository winningNumberRepository;
+    private final WinningRepository winningRepository;
 
-    public FacadeWinningServiceImpl(LottoCountRepository lottoCountRepository, WinningNumberRepository winningNumberRepository) {
+    public FacadeWinningServiceImpl(LottoCountRepository lottoCountRepository, WinningRepository winningRepository) {
         this.lottoCountRepository = lottoCountRepository;
-        this.winningNumberRepository = winningNumberRepository;
+        this.winningRepository = winningRepository;
     }
 
     @Override
@@ -31,12 +31,12 @@ public class FacadeWinningServiceImpl implements FacadeWinningService {
         List<Integer> winningNumberList = Arrays.stream(winningNumbersStringList)
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
-        winningNumberRepository.saveWinningNumber(winningNumberList);
+        winningRepository.saveWinningNumber(winningNumberList);
     }
 
     @Override
     public void saveBonusNumber(int bonusNumber) {
-        winningNumberRepository.saveBonusNumber(bonusNumber);
+        winningRepository.saveBonusNumber(bonusNumber);
     }
 
     @Override
@@ -48,14 +48,14 @@ public class FacadeWinningServiceImpl implements FacadeWinningService {
                 matchedCountStatistics.get(BONUS_COUNT.getCount()),
                 matchedCountStatistics.get(SIX_COUNT.getCount())
         );
-        winningNumberRepository.saveLottoResult(lottoResult);
+        winningRepository.saveLottoResult(lottoResult);
     }
 
     @Override
     public void matchNumber(List<Lotto> lottoList, Map<Integer, Integer> matchCountStatistics) {
         for (Lotto lotto : lottoList) {
-            int matchedCount = lotto.matchWinningNumber(winningNumberRepository.getWinningNumber());
-            boolean hasBonus = lotto.matchBonusNumber(winningNumberRepository.getBonusNumber());
+            int matchedCount = lotto.matchWinningNumber(winningRepository.getWinningNumber());
+            boolean hasBonus = lotto.matchBonusNumber(winningRepository.getBonusNumber());
 
             matchWinningNumber(matchedCount, hasBonus, matchCountStatistics);
         }
@@ -73,7 +73,7 @@ public class FacadeWinningServiceImpl implements FacadeWinningService {
 
     @Override
     public double getRateOfReturn(int inputMoney) {
-        int winningMoney = calculateWinningMoney(winningNumberRepository.getLottoResult());
+        int winningMoney = calculateWinningMoney(winningRepository.getLottoResult());
         System.out.println(winningMoney);
         System.out.println(inputMoney);
         double rateOfReturn = (double) winningMoney / inputMoney;
@@ -82,7 +82,7 @@ public class FacadeWinningServiceImpl implements FacadeWinningService {
 
     @Override
     public LottoResult getLottoResult() {
-        return winningNumberRepository.getLottoResult();
+        return winningRepository.getLottoResult();
     }
 
     private int calculateWinningMoney(LottoResult lottoResult) {
