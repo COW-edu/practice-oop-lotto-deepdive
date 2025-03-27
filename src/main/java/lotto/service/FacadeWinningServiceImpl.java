@@ -6,22 +6,21 @@ import static lotto.WinningCount.FOUR_COUNT;
 import static lotto.WinningCount.SIX_COUNT;
 import static lotto.WinningCount.THREE_COUNT;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import lotto.model.LottoCountRepository;
 import lotto.model.entity.Lotto;
 import lotto.model.WinningRepository;
 import lotto.model.entity.LottoResult;
 
 public class FacadeWinningServiceImpl implements FacadeWinningService {
 
-    private final LottoCountRepository lottoCountRepository;
     private final WinningRepository winningRepository;
 
-    public FacadeWinningServiceImpl(LottoCountRepository lottoCountRepository, WinningRepository winningRepository) {
-        this.lottoCountRepository = lottoCountRepository;
+    public FacadeWinningServiceImpl(WinningRepository winningRepository) {
         this.winningRepository = winningRepository;
     }
 
@@ -74,10 +73,17 @@ public class FacadeWinningServiceImpl implements FacadeWinningService {
     @Override
     public double getRateOfReturn(int inputMoney) {
         int winningMoney = calculateWinningMoney(winningRepository.getLottoResult());
-        System.out.println(winningMoney);
-        System.out.println(inputMoney);
         double rateOfReturn = (double) winningMoney / inputMoney;
-        return Math.round(rateOfReturn*100.0);
+        return roundToTwoDecimalPlaces(convertToPercentage(rateOfReturn));
+    }
+
+    private static long convertToPercentage(double rateOfReturn) {
+        return Math.round(rateOfReturn * 100.0);
+    }
+
+    private static double roundToTwoDecimalPlaces(double rateOfReturn) {
+        BigDecimal rateOfReturnBD = new BigDecimal(rateOfReturn).setScale(2, RoundingMode.HALF_UP);
+        return rateOfReturnBD.doubleValue();
     }
 
     @Override
