@@ -1,43 +1,74 @@
 package lotto.controller;
 
 import java.util.List;
-import lotto.Lotto;
-import lotto.service.LottoCountService;
-import lotto.service.LottoNumberService;
-import lotto.service.WinningNumberService;
+import lotto.service.LottoService;
 
 public class LottoControllerImpl implements LottoController {
 
-    private final LottoCountService lottoCountService;
-    private final LottoNumberService lottoNumberService;
-    private final WinningNumberService winningNumberService;
+    private final LottoService lottoService;
 
-    LottoControllerImpl(LottoCountService lottoCountService, LottoNumberService lottoNumberService,
-            WinningNumberService winningNumberService) {
-        this.lottoCountService = lottoCountService;
-        this.lottoNumberService = lottoNumberService;
-        this.winningNumberService = winningNumberService;
+    public LottoControllerImpl(LottoService lottoService) {
+        this.lottoService = lottoService;
     }
 
     @Override
     public void purchaseLotto(int money) {
-        lottoCountService.calculatePurchasedLottoCount(money);
-        lottoNumberService.extractLottoNumbers();
+        lottoService.purchaseLotto(money);
     }
 
     @Override
     public void saveWinningNumber(String winningNumber) {
-        winningNumberService.saveWinningNumber(winningNumber);
+        lottoService.saveWinningNumber(winningNumber);
     }
 
     @Override
     public void saveBonusNumber(int bonusNumber) {
-        winningNumberService.saveBonusNumber(bonusNumber);
+        lottoService.saveBonusNumber(bonusNumber);
     }
 
     @Override
     public void matchWinningNumber() {
-        List<Lotto> lottoList = lottoNumberService.getLottoList();
-        winningNumberService.matchNumber(lottoList);
+        lottoService.matchWinningNumber();
+
+    }
+
+    @Override
+    public double getRateOfReturn() {
+        return lottoService.getRateOfReturn();
+    }
+
+    @Override
+    public int getPurchasedLottoCount() {
+        return lottoService.getLottoCount();
+    }
+
+    @Override
+    public List<List<Integer>> getLottoList() {
+        return lottoService.getLottoList();
+    }
+
+    @Override
+    public int getThreeCount() {
+        return lottoService.getLottoResult().getThreeCount();
+    }
+
+    @Override
+    public int getFourCount() {
+        return lottoService.getLottoResult().getFourCount();
+    }
+
+    @Override
+    public int getFiveCount() {
+        return lottoService.getLottoResult().getFiveCount();
+    }
+
+    @Override
+    public int getBonusCount() {
+        return lottoService.getLottoResult().getBonusCount();
+    }
+
+    @Override
+    public int getSixCount() {
+        return lottoService.getLottoResult().getSixCount();
     }
 }

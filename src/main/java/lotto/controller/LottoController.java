@@ -1,5 +1,7 @@
 package lotto.controller;
 
+import java.util.List;
+
 public interface LottoController {
     void purchaseLotto(int money);
 
@@ -8,4 +10,20 @@ public interface LottoController {
     void saveBonusNumber(int bonusNumber);
 
     void matchWinningNumber();
+
+    double getRateOfReturn();
+
+    int getPurchasedLottoCount();
+
+    List<List<Integer>> getLottoList();
+
+    int getThreeCount();
+
+    int getFourCount();
+
+    int getFiveCount();
+
+    int getBonusCount();
+
+    int getSixCount();
 }
