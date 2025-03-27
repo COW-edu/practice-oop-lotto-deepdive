@@ -29,7 +29,6 @@ public class LottoControllerImpl implements LottoController {
     @Override
     public void matchWinningNumber() {
         lottoService.matchWinningNumber();
-
     }
 
     @Override
