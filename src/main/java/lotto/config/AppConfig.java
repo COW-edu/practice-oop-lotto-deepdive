@@ -37,7 +37,7 @@ public class AppConfig {
     }
 
     public FacadeWinningService winningNumberService() {
-        return new FacadeWinningServiceImpl(lottoCountRepository(), winningNumberRepository());
+        return new FacadeWinningServiceImpl(winningNumberRepository());
     }
 
     public LottoCountRepository lottoCountRepository() {
