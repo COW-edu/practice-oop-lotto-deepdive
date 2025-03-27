@@ -2,7 +2,7 @@ package lotto.application.validation;
 
 import lotto.util.ErrorMessages;
 
-public class AmountValidator implements Validation<String> {
+public class AmountValidator implements NumberValidation<String> {
     @Override
     public int validate(String input) {
         return validateAndParseAmount(input);

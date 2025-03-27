@@ -1,5 +1,5 @@
 package lotto.application.validation;
 
-public interface Validation<T> {
+public interface NumberValidation<T> {
     int validate(T input);
 }

@@ -10,7 +10,7 @@ import lotto.domain.generator.LottoNumberGenerator;
 import lotto.domain.generator.LottoNumberGeneratorImpl;
 import lotto.domain.port.in.LottoUseCase;
 import lotto.domain.port.out.LottoRepositoryPort;
-import lotto.application.validation.Validation;
+import lotto.application.validation.NumberValidation;
 
 public class AppConfig {
 
@@ -22,7 +22,7 @@ public class AppConfig {
         return new ConsoleOutputView();
     }
 
-    public Validation<String> amountValidator() {
+    public NumberValidation<String> amountValidator() {
         return new AmountValidator();
     }
 
