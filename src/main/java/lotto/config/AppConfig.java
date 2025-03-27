@@ -5,12 +5,12 @@ import lotto.adapter.in.console.ConsoleLottoController;
 import lotto.adapter.in.console.ConsoleOutputView;
 import lotto.adapter.out.memory.LottoRepository;
 import lotto.application.service.LottoService;
-import lotto.application.validation.AmountValidator;
+import lotto.application.validation.*;
 import lotto.domain.generator.LottoNumberGenerator;
 import lotto.domain.generator.LottoNumberGeneratorImpl;
+import lotto.domain.model.ResultCalculator;
 import lotto.domain.port.in.LottoUseCase;
 import lotto.domain.port.out.LottoRepositoryPort;
-import lotto.application.validation.NumberValidation;
 
 public class AppConfig {
 
@@ -26,6 +26,14 @@ public class AppConfig {
         return new AmountValidator();
     }
 
+    public NumberValidation<String> bonusNumberValidator() {
+        return new BonusNumberValidator();
+    }
+
+    public NumberListValidation<String> lottoNumberValidator() {
+        return new LottoNumberValidator();
+    }
+
     public LottoRepositoryPort lottoRepository() {
         return new LottoRepository();
     }
@@ -34,8 +42,12 @@ public class AppConfig {
         return new LottoNumberGeneratorImpl();
     }
 
+    public ResultCalculator resultCalculator() {
+        return new ResultCalculator();
+    }
+
     public LottoUseCase lottoUseCase() {
-        return new LottoService(lottoRepository(), lottoNumberGenerator());
+        return new LottoService(lottoRepository(), lottoNumberGenerator(), resultCalculator());
     }
 
     public ConsoleLottoController consoleLottoController() {
@@ -43,7 +55,9 @@ public class AppConfig {
             consoleInputView(),
             consoleOutputView(),
             lottoUseCase(),
-            amountValidator()
+            amountValidator(),
+            lottoNumberValidator(),
+            bonusNumberValidator()
         );
     }
 }
