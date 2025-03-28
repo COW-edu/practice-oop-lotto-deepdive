@@ -60,18 +60,22 @@ public class FacadeWinningServiceImpl implements FacadeWinningService {
             int matchedCount = lotto.matchWinningNumber(winningRepository.getWinningNumber());
             boolean hasBonus = lotto.matchBonusNumber(winningRepository.getBonusNumber());
 
-            matchWinningNumber(matchedCount, hasBonus, matchCountStatistics);
+            updateMatchStatistics(matchedCount, hasBonus, matchCountStatistics);
         }
     }
 
-    private void matchWinningNumber(int matchedCount, boolean hasBonus, Map<Integer, Integer> matchCountStatistics) {
+    private void updateMatchStatistics(int matchedCount, boolean hasBonus, Map<Integer, Integer> matchCountStatistics) {
         if (matchedCount == FIVE_COUNT.getCount() && hasBonus) {
-            matchCountStatistics.put(BONUS_COUNT.getCount(),
-                    matchCountStatistics.getOrDefault(BONUS_COUNT.getCount(), DEFAULT_WINNING_COUNT) + WINNING_INCREMENT);
-        } else if (matchedCount >= THREE_COUNT.getCount()) {
-            matchCountStatistics.put(matchedCount,
-                    matchCountStatistics.getOrDefault(matchedCount, DEFAULT_WINNING_COUNT) + WINNING_INCREMENT);
+            incrementCount(matchCountStatistics, BONUS_COUNT.getCount());
+            return;
         }
+        if (matchedCount >= THREE_COUNT.getCount()) {
+            incrementCount(matchCountStatistics, matchedCount);
+        }
+    }
+
+    private void incrementCount(Map<Integer, Integer> matchCountStatistics, int key) {
+        matchCountStatistics.put(key, matchCountStatistics.getOrDefault(key, DEFAULT_WINNING_COUNT) + WINNING_INCREMENT);
     }
 
     @Override
@@ -86,7 +90,8 @@ public class FacadeWinningServiceImpl implements FacadeWinningService {
     }
 
     private static double roundToTwoDecimalPlaces(double rateOfReturn) {
-        BigDecimal rateOfReturnBD = new BigDecimal(rateOfReturn).setScale(PERCENTAGE_SCALE, RoundingMode.HALF_UP);
+        BigDecimal rateOfReturnBD = new BigDecimal(rateOfReturn).setScale(PERCENTAGE_SCALE,
+                RoundingMode.HALF_UP);
         return rateOfReturnBD.doubleValue();
     }
 
@@ -96,9 +101,11 @@ public class FacadeWinningServiceImpl implements FacadeWinningService {
     }
 
     private int calculateWinningMoney(LottoResult lottoResult) {
-        return lottoResult.getThreeCount()*THREE_COUNT.getAmount() + lottoResult.getFourCount()* FOUR_COUNT.getAmount()
-                + lottoResult.getFiveCount()* FIVE_COUNT.getAmount() + lottoResult.getBonusCount()* BONUS_COUNT.getAmount()
-                + lottoResult.getSixCount()*SIX_COUNT.getAmount();
+        return lottoResult.getThreeCount() * THREE_COUNT.getAmount()
+                + lottoResult.getFourCount() * FOUR_COUNT.getAmount()
+                + lottoResult.getFiveCount() * FIVE_COUNT.getAmount()
+                + lottoResult.getBonusCount() * BONUS_COUNT.getAmount()
+                + lottoResult.getSixCount() * SIX_COUNT.getAmount();
     }
 
 }
