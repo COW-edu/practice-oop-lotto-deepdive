@@ -13,11 +13,4 @@ public class LottoConstants {
 
     public static final int DEFAULT_WINNING_COUNT = 0;
     public static final int WINNING_INCREMENT = 1;
-
-    public static final int THREE_WINNING_MONEY = 5000;
-    public static final int FOUR_WINNING_MONEY = 50000;
-    public static final int FIVE_WINNING_MONEY = 150000;
-    public static final int BONUS_WINNING_MONEY = 30000000;
-    public static final int SIX_WINNING_MONEY = 2000000000;
-
 }

@@ -5,14 +5,9 @@ import static lotto.WinningCount.FIVE_COUNT;
 import static lotto.WinningCount.FOUR_COUNT;
 import static lotto.WinningCount.SIX_COUNT;
 import static lotto.WinningCount.THREE_COUNT;
-import static lotto.constants.LottoConstants.BONUS_WINNING_MONEY;
 import static lotto.constants.LottoConstants.DEFAULT_WINNING_COUNT;
-import static lotto.constants.LottoConstants.FIVE_WINNING_MONEY;
-import static lotto.constants.LottoConstants.FOUR_WINNING_MONEY;
 import static lotto.constants.LottoConstants.PERCENTAGE_MULTIPLIER;
 import static lotto.constants.LottoConstants.PERCENTAGE_SCALE;
-import static lotto.constants.LottoConstants.SIX_WINNING_MONEY;
-import static lotto.constants.LottoConstants.THREE_WINNING_MONEY;
 import static lotto.constants.LottoConstants.WINNING_INCREMENT;
 
 import java.math.BigDecimal;
@@ -101,9 +96,9 @@ public class FacadeWinningServiceImpl implements FacadeWinningService {
     }
 
     private int calculateWinningMoney(LottoResult lottoResult) {
-        return lottoResult.getThreeCount()*THREE_WINNING_MONEY + lottoResult.getFourCount()*FOUR_WINNING_MONEY
-                + lottoResult.getFiveCount()*FIVE_WINNING_MONEY + lottoResult.getBonusCount()*BONUS_WINNING_MONEY
-                + lottoResult.getSixCount()*SIX_WINNING_MONEY;
+        return lottoResult.getThreeCount()*THREE_COUNT.getAmount() + lottoResult.getFourCount()* FOUR_COUNT.getAmount()
+                + lottoResult.getFiveCount()* FIVE_COUNT.getAmount() + lottoResult.getBonusCount()* BONUS_COUNT.getAmount()
+                + lottoResult.getSixCount()*SIX_COUNT.getAmount();
     }
 
 }
