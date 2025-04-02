@@ -16,7 +16,6 @@ java {
         languageVersion = JavaLanguageVersion.of(11)
     }
 }
-
 test {
     useJUnitPlatform()
 }

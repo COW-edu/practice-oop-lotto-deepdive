@@ -1,0 +1,255 @@
+@startuml
+
+' Interfaces
+interface View {
+  +readAmount(): String
+  +readWinningNumbers(): String
+  +readBonusNumber(): String
+  +printLottoTickets(LottosDTO, int): void
+  +printResult(LottoResult): void
+  +printProfit(double): void
+  +printError(String): void
+}
+
+interface Formatter {
+  +format(Object): String
+}
+
+interface LottoGenerator {
+  +generate(int): List<Lotto>
+}
+
+' View Implementation
+class ConsoleView {
+  -rateFormatter: Formatter
+  -rankFormatter: Formatter
+  +ConsoleView(Formatter, Formatter)
+  +readAmount(): String
+  +readWinningNumbers(): String
+  +readBonusNumber(): String
+  +printLottoTickets(LottosDTO, int): void
+  +printResult(LottoResult): void
+  +printProfit(double): void
+  +printError(String): void
+  -printRankResult(LottoResult, LottoRank): void
+}
+
+' Formatter Implementations
+class MoneyFormatter {
+  +format(Object): String
+}
+
+class RateFormatter {
+  +format(Object): String
+}
+
+class RankResultFormatter {
+  -moneyFormatter: Formatter
+  +RankResultFormatter(Formatter)
+  +format(Object): String
+}
+
+' LottoGenerator Implementation
+class RandomLottoGenerator {
+  +generate(int): List<Lotto>
+}
+
+' Controller
+class LottoGameController {
+  -view: View
+  -gameFacade: LottoGameFacade
+  +LottoGameController(View, LottoGameFacade)
+  +start(): void
+}
+
+' Services
+class LottoGameFacade {
+  -lottoService: LottoService
+  -winningNumbersService: WinningNumbersService
+  -resultService: ResultService
+  +LottoGameFacade(LottoService, WinningNumbersService, ResultService)
+  +purchaseAndGenerateLottos(String): LottosDTO
+  +createWinningNumbers(String, String): WinningNumbers
+  +calculateGameResult(LottosDTO, WinningNumbers, int): GameResult
+}
+
+class LottoService {
+  -lottoGenerator: LottoGenerator
+  +LottoService(LottoGenerator)
+  +createTicket(String): Ticket
+  +generateLottos(Ticket): LottosDTO
+}
+
+class WinningNumbersService {
+  +createWinningNumbers(String, String): WinningNumbers
+}
+
+class ResultService {
+  +calculateResult(LottosDTO, WinningNumbers): LottoResult
+  +calculateReturnRate(LottoResult, int): double
+}
+
+' Models
+class Lotto {
+  -numbers: List<LottoNumber>
+  +Lotto(List<Integer>)
+  +getNumbers(): List<Integer>
+  +matchCount(Lotto): int
+  +contains(int): boolean
+  -validateSize(List<Integer>): void
+  -validateDuplicate(List<Integer>): void
+}
+
+class LottoNumber {
+  -value: int
+  -LottoNumber(int)
+  +of(int): LottoNumber
+  +getValue(): int
+  +equals(Object): boolean
+  +hashCode(): int
+  +toString(): String
+}
+
+class WinningNumbers {
+  -numbers: List<Integer>
+  -bonusNumber: int
+  +WinningNumbers(List<Integer>, int)
+  +getNumbers(): List<Integer>
+  +getBonusNumber(): int
+  -validateLottoNumbers(List<Integer>): void
+  -validateBonusNumber(int, List<Integer>): void
+}
+
+class Money {
+  -amount: int
+  -Money(int)
+  +wons(String): Money
+  +validateLottoAmount(): void
+  +getLottoCount(): int
+  +add(Money): Money
+  +getAmount(): int
+  +equals(Object): boolean
+  +hashCode(): int
+  +toString(): String
+}
+
+class Ticket {
+  -price: Money
+  -lottoCount: int
+  +Ticket(String)
+  +getAmount(): int
+  +getPrice(): int
+}
+
+class LottoResult {
+  -rankCounts: Map<LottoRank, Integer>
+  +LottoResult()
+  +addRank(LottoRank): void
+  +getCount(LottoRank): int
+  +calculateReturnRate(int): double
+  -calculateTotalPrize(): long
+  -initializeRankCounts(): void
+  -getValidRanks(): List<LottoRank>
+  -isValidRank(LottoRank): boolean
+}
+
+class GameResult {
+  -lottoResult: LottoResult
+  -returnRate: double
+  +GameResult(LottoResult, double)
+  +getLottoResult(): LottoResult
+  +getReturnRate(): double
+}
+
+' DTOs
+class LottosDTO {
+  -lottos: List<Lotto>
+  +LottosDTO(List<Lotto>)
+  +getLottos(): List<Lotto>
+}
+
+' Enums
+enum LottoRank {
+  FIRST
+  SECOND
+  THIRD
+  FOURTH
+  FIFTH
+  NONE
+  -rank: int
+  -matchCount: int
+  -bonusMatch: boolean
+  -prize: int
+  +from(int, boolean): LottoRank
+  +getMatchCount(): int
+  +getPrize(): int
+  +isBonusMatch(): boolean
+}
+
+enum ErrorMessage {
+  +getMessage(): String
+}
+
+' Constants
+class LottoConstants {
+  +{static} LOTTO_PRICE: int
+  +{static} LOTTO_LIMIT_PRICE: int
+  +{static} MIN_LOTTO_NUMBER: int
+  +{static} MAX_LOTTO_NUMBER: int
+  +{static} LOTTO_SIZE: int
+  +{static} COMMA: String
+}
+
+' Utility
+class ParsorUtil {
+  -ParsorUtil()
+  +{static} parseToInt(String): int
+  +{static} parseNumbersList(String): List<Integer>
+}
+
+' Application
+class Application {
+  +{static} main(String[]): void
+}
+
+' Relationships
+View <|.. ConsoleView
+Formatter <|.. MoneyFormatter
+Formatter <|.. RateFormatter
+Formatter <|.. RankResultFormatter
+LottoGenerator <|.. RandomLottoGenerator
+
+ConsoleView o-- Formatter
+
+LottoGameController *-- View
+LottoGameController *-- LottoGameFacade
+
+LottoGameFacade *-- LottoService
+LottoGameFacade *-- WinningNumbersService
+LottoGameFacade *-- ResultService
+
+LottoService *-- LottoGenerator
+
+WinningNumbersService ..> ParsorUtil
+WinningNumbersService ..> WinningNumbers : creates >
+
+LottoService ..> Ticket : creates >
+LottoService ..> LottosDTO : creates >
+
+ResultService ..> LottoResult : creates >
+ResultService ..> LottoRank : uses >
+
+Lotto *-- "many" LottoNumber
+
+Application ..> LottoGameController : creates >
+Application ..> LottoGameFacade : creates >
+Application ..> ConsoleView : creates >
+Application ..> Formatter : creates >
+Application ..> LottoService : creates >
+Application ..> WinningNumbersService : creates >
+Application ..> ResultService : creates >
+Application ..> RandomLottoGenerator : creates >
+
+RankResultFormatter o-- MoneyFormatter
+
+@enduml
